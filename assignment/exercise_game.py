@@ -42,15 +42,14 @@ def write_json(json_filename: str, data: dict):
 
 
 def scorer(times: list):
-    t_good= [x for x in times if x is not None]  
+    t_good = [x for x in times if x is not None and x > 0]  
    
     if t_good:
         mini= min(t_good)
         maxi= max(t_good)
-        avg= sum(t_good) / len(t_good)
+        avg= sum(t_good)/ len(t_good)
     else:
-        mini= maxi= avg= None
-
+        mini= maxi= avg = 0
    
     data = {
         "minimum time:": mini,
@@ -59,7 +58,7 @@ def scorer(times: list):
         "misses:": times.count(None),
         "num of flashes:": len(times),
         "successful presses:": len(t_good),
-        "score:": len(t_good) / len(times) if times else 0
+        "score:": len(t_good) / len(times) if t_good and any(t_good) else 0 
     }
 
    
